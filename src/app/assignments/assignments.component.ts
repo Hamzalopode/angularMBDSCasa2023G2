@@ -50,4 +50,11 @@ export class AssignmentsComponent {
     // on cache le formulaire et on affiche la liste
     this.formVisible = false;
   }
+
+  onDeleteAssignment(a:Assignment) {
+    // on ajoute l'assignment envoyé par le fils au tableau
+    console.log(a);
+    this.assignments.splice(this.assignments.indexOf(a));
+
+  }
 }
