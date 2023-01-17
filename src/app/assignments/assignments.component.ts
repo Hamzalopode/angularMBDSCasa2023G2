@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Assignment } from './assignment.model';
 
 @Component({
   selector: 'app-assignments',
@@ -7,24 +8,24 @@ import { Component } from '@angular/core';
 })
 export class AssignmentsComponent {
   titre = 'Liste des Assignments';
-  // Champs du formulaire
-  nomDevoir = '';
-  dateDeRendu = '';
+  formVisible=false;
 
-  assignments = [
+  assignmentSelectionne!:Assignment;
+
+  assignments:Assignment[] = [
     {
       nom:"Devoir Angular de Mr Buffa",
-      dateDeRendu:"2023-01-26",
+      dateDeRendu: new Date("2023-01-26"),
       rendu : false
     },
     {
       nom:"Devoir R de Mr Pasquier",
-      dateDeRendu:"2023-02-15",
+      dateDeRendu: new Date("2023-02-15"),
       rendu : false
     },
     {
       nom:"Devoir Grails de Mr galli",
-      dateDeRendu:"2022-12-16",
+      dateDeRendu: new Date("2022-12-16"),
       rendu : true
     }
   ];
@@ -37,8 +38,16 @@ export class AssignmentsComponent {
     }
   }
 
-  onSubmit(event:any) {
-    console.log(event);
-    console.log("Formulaire soumis nom = " + this.nomDevoir);
+  assignmentClique(a:Assignment) {
+    console.log("CLICK : " + a.nom);
+    this.assignmentSelectionne = a;
+  }
+
+  onAddAssignment(a:Assignment) {
+    // on ajoute l'assignment envoyé par le fils au tableau
+    this.assignments.push(a);
+
+    // on cache le formulaire et on affiche la liste
+    this.formVisible = false;
   }
 }

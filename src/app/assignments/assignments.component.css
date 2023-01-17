@@ -8,3 +8,12 @@
   border: 2px dashed red;
   padding:3px
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.ajouterBtn {
+  align-self: flex-end;
+}
