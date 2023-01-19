@@ -7,7 +7,10 @@ export class LoggingService {
 
   constructor() { }
 
-  log(assignmentName: string, action: string){
-    console.log(`LOGSERVICE: Assignment ${assignmentName} a été ${action}`);
+  /* Cette méthode affiche dans la console un message
+    * indiquant que l'assignment a été créé, supprimé, modifié etc.
+  */
+  log(assignmentName:string, action:string) {
+    console.log(`LOGGING SERVICE : Assignment ${assignmentName} a été ${action}`);
   }
 }
