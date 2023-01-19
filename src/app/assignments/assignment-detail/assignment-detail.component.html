@@ -8,12 +8,12 @@
       Devoir rendu
     </mat-checkbox>
 
-      <button routerLink="/assignments/{{assignmentTransmis.id}}/edit" mat-flat-button color="primary">
+      <button routerLink="/assignments/{{assignmentTransmis.id}}/edit" [disabled]="!isAdmin()" mat-flat-button color="primary">
         EDIT
       </button>
 
 
-    <button mat-flat-button color="warn" (click)="deleteElem()">
+    <button mat-flat-button color="warn" [disabled]="!isAdmin()" (click)="deleteElem()">
       DELETE ME
     </button>
   </mat-card-actions>
