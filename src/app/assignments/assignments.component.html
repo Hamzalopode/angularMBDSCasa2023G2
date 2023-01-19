@@ -5,10 +5,11 @@
 </app-add-assignment>
 
 
-<main *ngIf="!formVisible" class="container">
+<main class="container">
+  <a routerLink="/add">
   <button mat-flat-button color="primary" (click)="formVisible=true"
           class="ajouterBtn"
-  >Ajouter devoir</button>
+  >Ajouter devoir</button></a>
 
   <h2>{{titre}}</h2>
   <mat-divider></mat-divider>

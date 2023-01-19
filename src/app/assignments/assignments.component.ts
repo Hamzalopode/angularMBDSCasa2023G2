@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AssignmentsService } from '../shared/assignments.service';
 import { Assignment } from './assignment.model';
 
 @Component({
@@ -6,29 +7,28 @@ import { Assignment } from './assignment.model';
   templateUrl: './assignments.component.html',
   styleUrls: ['./assignments.component.css'],
 })
-export class AssignmentsComponent {
+export class AssignmentsComponent implements OnInit{
   titre = 'Liste des Assignments';
   formVisible=false;
 
   assignmentSelectionne!:Assignment;
 
-  assignments:Assignment[] = [
-    {
-      nom:"Devoir Angular de Mr Buffa",
-      dateDeRendu: new Date("2023-01-26"),
-      rendu : false
-    },
-    {
-      nom:"Devoir R de Mr Pasquier",
-      dateDeRendu: new Date("2023-02-15"),
-      rendu : false
-    },
-    {
-      nom:"Devoir Grails de Mr galli",
-      dateDeRendu: new Date("2022-12-16"),
-      rendu : true
-    }
-  ];
+  assignments:Assignment[] = [];
+
+  constructor(private assignmentsService:AssignmentsService){
+
+  }
+
+  ngOnInit(){
+    console.log("Avant Affichage");
+
+    // On cherche data with service
+    this.assignmentsService.getAssignments()
+    .subscribe(assignments =>{
+      this.assignments = assignments;
+    });
+
+  }
 
   getColor(a:any) {
     if (a.rendu) {
@@ -45,16 +45,23 @@ export class AssignmentsComponent {
 
   onAddAssignment(a:Assignment) {
     // on ajoute l'assignment envoyé par le fils au tableau
-    this.assignments.push(a);
+    // this.assignments.push(a);
+    this.assignmentsService.addAssignments(a)
+    .subscribe(message =>{
+      console.log(message);
+      // on cache le formulaire et on affiche la liste
+      this.formVisible = false;
+    })
 
-    // on cache le formulaire et on affiche la liste
-    this.formVisible = false;
   }
 
   onDeleteAssignment(a:Assignment) {
     // on ajoute l'assignment envoyé par le fils au tableau
     console.log(a);
-    this.assignments.splice(this.assignments.indexOf(a));
+    this.assignmentsService.deleteAssignments(a)
+    .subscribe(message =>{
+      console.log(message);
+    });
 
   }
 }
